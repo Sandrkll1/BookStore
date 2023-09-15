@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>906</width>
+    <height>724</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Bookstore</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="mainLayout">
+    <item>
+     <widget class="QLabel" name="titleLabel">
+      <property name="styleSheet">
+       <string notr="true">font: 36pt &quot;MS Shell Dlg 2&quot;;</string>
+      </property>
+      <property name="text">
+       <string>Bookstore</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="containerLayout">
+      <item>
+       <layout class="QVBoxLayout" name="leftMenuLayout">
+        <item>
+         <widget class="QLineEdit" name="searchBar">
+          <property name="styleSheet">
+           <string notr="true">font: 12pt &quot;MS Shell Dlg 2&quot;;</string>
+          </property>
+          <property name="placeholderText">
+           <string>Search books...</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QListWidget" name="categoriesList">
+          <property name="styleSheet">
+           <string notr="true">font: 14pt &quot;MS Shell Dlg 2&quot;;</string>
+          </property>
+          <item>
+           <property name="text">
+            <string>Drama</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Fantasy</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Fary-tail</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="QScrollArea" name="productsScrollArea">
+        <property name="widgetResizable">
+         <bool>true</bool>
+        </property>
+        <widget class="QWidget" name="productsContainer">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>628</width>
+           <height>638</height>
+          </rect>
+         </property>
+         <layout class="QGridLayout" name="productsGrid">
+          <item row="0" column="0">
+           <layout class="QGridLayout" name="gridLayout"/>
+          </item>
+         </layout>
+        </widget>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
