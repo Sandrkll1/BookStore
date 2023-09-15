@@ -6,25 +6,34 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>716</width>
-    <height>263</height>
+    <width>680</width>
+    <height>275</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
   <widget class="QWidget" name="horizontalLayoutWidget">
    <property name="geometry">
     <rect>
-     <x>20</x>
-     <y>60</y>
+     <x>0</x>
+     <y>0</y>
      <width>661</width>
-     <height>151</height>
+     <height>261</height>
     </rect>
    </property>
    <layout class="QHBoxLayout" name="horizontalLayout">
     <item>
      <widget class="QLabel" name="bookImage">
+      <property name="maximumSize">
+       <size>
+        <width>200</width>
+        <height>400</height>
+       </size>
+      </property>
       <property name="text">
        <string>TextLabel</string>
       </property>
@@ -33,14 +42,14 @@
     <item>
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
-       <widget class="QLabel" name="bookTitle">
+       <widget class="QLabel" name="bookDescription">
         <property name="text">
          <string>TextLabel</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QLabel" name="bookDescription">
+       <widget class="QLabel" name="bookTitle">
         <property name="text">
          <string>TextLabel</string>
         </property>

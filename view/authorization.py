@@ -1,15 +1,15 @@
 import sys
 from PyQt5.QtWidgets import *
-from PyQt5 import uic
 import qdarkstyle
 from loader import db
+from design.layouts.authorization_layout import Ui_MainWindow
 
 
-class Authorization(QMainWindow):
+class Authorization(QMainWindow, Ui_MainWindow):
 
     def __init__(self, *args, main_window=None):
         super(Authorization, self).__init__(*args)
-        uic.loadUi(".\\design\\ui\\authorization.ui", self)
+        self.setupUi(self)
 
         self.main_window = main_window
         self.showPasswordCheckBox.stateChanged.connect(self.show_password)

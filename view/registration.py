@@ -1,15 +1,15 @@
 import sys
 from PyQt5.QtWidgets import *
-from PyQt5 import uic
 import qdarkstyle
+from design.layouts.registration_layout import Ui_MainWindow
 from loader import db
 
 
-class Registration(QMainWindow):
+class Registration(QMainWindow, Ui_MainWindow):
 
     def __init__(self, *args, main_window=None):
         super(Registration, self).__init__(*args)
-        uic.loadUi(".\\design\\ui\\registration.ui", self)
+        self.setupUi(self)
 
         self.main_window = main_window
 

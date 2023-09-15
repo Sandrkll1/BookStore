@@ -1,4 +1,5 @@
 from PyQt5 import QtWidgets, uic
+from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QPixmap
 
 
@@ -10,3 +11,5 @@ class BookCard(QtWidgets.QWidget):
         self.bookTitle.setText(title)
         self.bookDescription.setText(description)
         self.bookImage.setPixmap(QPixmap(image_path))
+        self.bookImage.setAlignment(Qt.AlignCenter)
+        self.bookImage.setScaledContents(True)
