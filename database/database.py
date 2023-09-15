@@ -62,6 +62,36 @@ class UserDatabase(BaseDatabase):
             return user.fetchone()[0]
 
 
+class CategoryDatabase(BaseDatabase):
+
+    def __init__(self, filename):
+        super().__init__(filename)
+        self.create_table()
+
+    def create_table(self):
+        query = """
+                   CREATE TABLE IF NOT EXISTS categories(
+                       category_id          INTEGER PRIMARY KEY AUTOINCREMENT,
+                       category_name        TEXT
+                   ); 
+                   """
+
+        self.cursor.execute(query)
+        self.db.commit()
+
+    def get_category_name(self, category_id):
+        category_name = self.cursor.execute("""SELECT * FROM categories WHERE category_id = ?""", (category_id, ))
+        return category_name.fetchone()[1]
+
+    def get_category_id(self, category_name):
+        category_id = self.cursor.execute("""SELECT * FROM categories WHERE category_name = ?""", (category_name, ))
+        return category_id.fetchone()[0]
+
+    def add_category(self, category_name):
+        self.cursor.execute("""INSERT INTO categories(category_name) VALUES(?)""", (category_name, ))
+        self.db.commit()
+
+
 class BookDatabase(BaseDatabase):
 
     def __init__(self, filename):
@@ -72,12 +102,13 @@ class BookDatabase(BaseDatabase):
         query = """
                    CREATE TABLE IF NOT EXISTS books(
                        book_id          INTEGER PRIMARY KEY AUTOINCREMENT,
+                       category_id      INTEGER,
                        book_name        TEXT,
                        author           VARCHAR(60), 
                        year             INTEGER,
                        description      TEXT,
                        price            DOUBLE,
-                       category         VARCHAR(60)
+                       FOREIGN KEY (category_id) REFERENCES categories(category_id)
                    ); 
                    """
 
@@ -137,9 +168,10 @@ class OrderDatabase(BaseDatabase):
         return orders.fetchall()
 
 
-class Database(UserDatabase, BookDatabase, OrderDatabase):
+class Database(UserDatabase, CategoryDatabase, BookDatabase, OrderDatabase):
     def __init__(self, filename):
         super().__init__(filename)
+        CategoryDatabase.create_table(self)
         BookDatabase.create_table(self)
         OrderDatabase.create_table(self)
 

@@ -13,9 +13,6 @@ class MainView(QMainWindow):
 
         self.setMinimumSize(800, 600)
 
-        with open(".\\styles\\main_view.qss", "r") as file:
-            self.setStyleSheet(file.read())
-
         self.containerLayout.setStretch(0, 1)
         self.containerLayout.setStretch(1, 3)
 
