@@ -9,7 +9,7 @@ class Authorization(QMainWindow):
 
     def __init__(self, *args, main_window=None):
         super(Authorization, self).__init__(*args)
-        uic.loadUi(".\\design\\authorization.ui", self)
+        uic.loadUi(".\\design\\ui\\authorization.ui", self)
 
         self.main_window = main_window
         self.showPasswordCheckBox.stateChanged.connect(self.show_password)

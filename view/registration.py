@@ -9,7 +9,7 @@ class Registration(QMainWindow):
 
     def __init__(self, *args, main_window=None):
         super(Registration, self).__init__(*args)
-        uic.loadUi(".\\design\\registration.ui", self)
+        uic.loadUi(".\\design\\ui\\registration.ui", self)
 
         self.main_window = main_window
 
