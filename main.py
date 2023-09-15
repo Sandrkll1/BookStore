@@ -1,4 +1,5 @@
 from view.main_view import MainView
+from view.registration import Registration
 import sys
 from PyQt5.QtWidgets import *
 import qdarkstyle
@@ -14,11 +15,13 @@ class Main(QMainWindow):
         self.stacked_widget = QStackedWidget()
         self.setCentralWidget(self.stacked_widget)
 
+        self.registration = Registration(main_window=self)
         self.mainMenu = MainView(main_window=self)
 
+        self.stacked_widget.addWidget(self.registration)
         self.stacked_widget.addWidget(self.mainMenu)
 
-        self.stacked_widget.setCurrentWidget(self.stacked_widget)
+        self.stacked_widget.setCurrentWidget(self.registration)
 
 
 if __name__ == "__main__":
