@@ -1,7 +1,8 @@
-from view.main_view import MainView
-from view.registration import Registration
 import sys
 from PyQt5.QtWidgets import *
+from view.main_view import MainView
+from view.registration import Registration
+from view.authorization import Authorization
 import qdarkstyle
 
 
@@ -16,9 +17,11 @@ class Main(QMainWindow):
         self.setCentralWidget(self.stacked_widget)
 
         self.registration = Registration(main_window=self)
+        self.authorization = Authorization(main_window=self)
         self.mainMenu = MainView(main_window=self)
 
         self.stacked_widget.addWidget(self.registration)
+        self.stacked_widget.addWidget(self.authorization)
         self.stacked_widget.addWidget(self.mainMenu)
 
         self.stacked_widget.setCurrentWidget(self.registration)
