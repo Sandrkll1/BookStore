@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>MainWindow</class>
  <widget class="QMainWindow" name="MainWindow">
@@ -71,16 +70,15 @@
         <property name="widgetResizable">
          <bool>true</bool>
         </property>
+        <property name="alignment">
+         <set>Qt::AlignJustify|Qt::AlignVCenter</set>
+        </property>
         <widget class="QWidget" name="productsContainer">
-         <property name="geometry">
-          <rect>
-           <x>0</x>
-           <y>0</y>
-           <width>438</width>
-           <height>638</height>
-          </rect>
-         </property>
-         <layout class="QVBoxLayout" name="productsVerticalLayout"/>
+         <layout class="QVBoxLayout" name="productsVerticalLayout">
+           <property name="spacing">
+            <number>10</number>
+           </property>
+         </layout>
         </widget>
        </widget>
       </item>

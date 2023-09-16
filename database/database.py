@@ -1,3 +1,4 @@
+import os.path
 import sqlite3
 
 
@@ -34,8 +35,8 @@ class UserDatabase(BaseDatabase):
         self.cursor.execute(query)
         self.db.commit()
 
-    def add_user(self, username, password):
-        self.cursor.execute("""INSERT INTO users (username, password) VALUES(?, ?)""", (username, password,))
+    def add_user(self, username, password, is_admin=False):
+        self.cursor.execute("""INSERT INTO users (username, password, is_admin) VALUES(?, ?, ?)""", (username, password, is_admin,))
         self.db.commit()
 
     def get_user(self, username) -> tuple:
@@ -108,6 +109,7 @@ class BookDatabase(BaseDatabase):
                        year             INTEGER,
                        description      TEXT,
                        price            DOUBLE,
+                       cover            BLOB,
                        FOREIGN KEY (category_id) REFERENCES categories(category_id)
                    ); 
                    """
@@ -115,9 +117,12 @@ class BookDatabase(BaseDatabase):
         self.cursor.execute(query)
         self.db.commit()
 
-    def add_book(self, book_name, author, year, description, price, category):
-        self.cursor.execute("""INSERT INTO books(book_name, author, year, description, price, category) VALUES(?, ?, ?, ?, ?, ?))""",
-                            (book_name, author, year, description, price, category,))
+    def add_book(self, book_name, author, year, description, price, category_id, cover=None):
+        if cover is not None and os.path.isfile(cover):
+            cover = self.convert_to_binary_data(cover)
+
+        self.cursor.execute("""INSERT INTO books(book_name, author, year, description, price, category_id, cover) VALUES(?, ?, ?, ?, ?, ?, ?)""",
+                            (book_name, author, year, description, price, category_id, cover, ))
         self.db.commit()
 
     def get_book_by_id(self, book_id):

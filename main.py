@@ -30,7 +30,7 @@ class Main(QMainWindow):
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     app.setStyleSheet(qdarkstyle.load_stylesheet_pyqt5())
-    window = Main()
-    # window = MainView()
+    # window = Main()
+    window = MainView()
     window.show()
     sys.exit(app.exec_())
