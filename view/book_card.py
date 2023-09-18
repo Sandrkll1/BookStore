@@ -5,16 +5,18 @@ from design.layouts.book_card_layout import Ui_BookCard
 
 
 class BookCard(QtWidgets.QWidget, Ui_BookCard):
-    def __init__(self, title, author, category, year, description, image, parent=None):
+    def __init__(self, book_id, title, author, category, year, description, image, parent=None):
         super(BookCard, self).__init__(parent)
         # uic.loadUi('.\\design\\ui\\book_card.ui', self)
         self.setupUi(self)
+
+        self.book_id = book_id
 
         self.bookTitle.setText(title)
         self.bookAuthor.setText(f"Автор: {author}")
         self.bookCategory.setText(f"Категория: {category}")
         self.bookYear.setText(f"Год издания: {year}")
-        self.bookDescription.setText(description)
+        self.bookDescription.setText(f"Описание: \n{description}")
 
         if image is not None:
             pixmap = QPixmap()

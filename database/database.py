@@ -92,6 +92,10 @@ class CategoryDatabase(BaseDatabase):
         self.cursor.execute("""INSERT INTO categories(category_name) VALUES(?)""", (category_name, ))
         self.db.commit()
 
+    def get_all_categories(self):
+        categories = self.cursor.execute("""SELECT * FROM categories""")
+        return categories.fetchall()
+
 
 class BookDatabase(BaseDatabase):
 
@@ -136,6 +140,14 @@ class BookDatabase(BaseDatabase):
     def get_all_books(self):
         books = self.cursor.execute("""SELECT * FROM books""")
         return books.fetchall()
+
+    def get_books_by_category(self, category_id):
+        books = self.cursor.execute("""SELECT * FROM books WHERE category_id = ?""", (category_id,))
+        return books.fetchall()
+
+    def search_books_name(self, book_name):
+        self.cursor.execute("""SELECT * FROM books WHERE LOWER(book_name) LIKE LOWER(?)""", (f"%{book_name}%",))
+        return self.cursor.fetchall()
 
 
 class OrderDatabase(BaseDatabase):
