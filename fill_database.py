@@ -2,7 +2,7 @@ from loader import db, default_image
 
 db.add_user("test1", "123456789")
 db.add_user("test2", "1234", True)
-db.add_user("True", "1", True)
+db.add_user("1", "1", True)
 db.add_user("car", "car")
 
 

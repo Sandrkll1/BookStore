@@ -2,7 +2,7 @@ from PyQt5.QtWidgets import *
 from .book_card import BookCard
 from design.layouts.main_layout import Ui_MainWindow
 from PyQt5 import uic
-from loader import db
+from loader import db, cart
 
 
 class MainView(QMainWindow, Ui_MainWindow):
@@ -18,6 +18,9 @@ class MainView(QMainWindow, Ui_MainWindow):
         self.main_window = main_window
         self.current_user_id = current_user_id
 
+        cart.addOnAddCallback(self.on_add_book)
+        cart.addOnRemoveCallback(self.on_remove_book)
+
         self.containerLayout.setStretch(0, 1)
         self.containerLayout.setStretch(1, 3)
 
@@ -25,15 +28,21 @@ class MainView(QMainWindow, Ui_MainWindow):
         self.load_books()
         self.categoriesList.itemClicked.connect(self.filter_category)
         self.deleteFiltersBtn.clicked.connect(self.delete_filters)
+        self.cartBtn.clicked.connect(self.go_cart)
         self.searchBar.textChanged.connect(self.search_books)
 
     def load_books(self, books=None):
         if books is None:
             books = db.get_all_books()
 
+        books_cards = []
+
         for book in books:
-            book_card = BookCard(book[0], book[2], book[3], db.get_category_name(book[1]), book[4], book[5], book[7])
+            book_card = BookCard(book[0], book[2], book[3], db.get_category_name(book[1]), book[4], book[5], book[7], self.main_window)
+            books_cards.append(book_card)
             self.productsVerticalLayout.addWidget(book_card)
+
+        BookCard.check_books(books_cards)
 
     def load_categories(self):
         for category in db.get_all_categories():
@@ -66,3 +75,26 @@ class MainView(QMainWindow, Ui_MainWindow):
         books = db.search_books_name(self.searchBar.text())
         self.clear_products()
         self.load_books(books)
+
+    def go_cart(self):
+        self.main_window.cart.set_user_id(self.current_user_id)
+
+        if self.main_window is not None:
+            self.main_window.cart.load_cart()
+            self.main_window.stacked_widget.setCurrentWidget(self.main_window.cart)
+
+    def on_add_book(self, book_id):
+        layout = self.productsContainer.layout()
+
+        for i in range(layout.count()):
+            widget = layout.itemAt(i).widget()
+            if widget is not None and widget.book_id == book_id:
+                widget.set_added()
+
+    def on_remove_book(self, book_id):
+        layout = self.productsContainer.layout()
+
+        for i in range(layout.count()):
+            widget = layout.itemAt(i).widget()
+            if widget is not None and widget.book_id == book_id:
+                widget.set_removed()

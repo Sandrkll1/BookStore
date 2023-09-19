@@ -145,8 +145,8 @@ class BookDatabase(BaseDatabase):
         books = self.cursor.execute("""SELECT * FROM books WHERE category_id = ?""", (category_id,))
         return books.fetchall()
 
-    def search_books_name(self, book_name):
-        self.cursor.execute("""SELECT * FROM books WHERE LOWER(book_name) LIKE LOWER(?)""", (f"%{book_name}%",))
+    def search_books_name(self, book_name: str):
+        self.cursor.execute("""SELECT * FROM books WHERE LOWER(book_name) LIKE LOWER(?)""", (f"%{book_name.lower()}%",))
         return self.cursor.fetchall()
 
 
