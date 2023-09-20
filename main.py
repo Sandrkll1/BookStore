@@ -1,6 +1,7 @@
 import sys
 from PyQt5.QtWidgets import *
 from model.main_view import MainView
+from model.order_placement import OrderPlacement
 from model.registration import Registration
 from model.authorization import Authorization
 from model.cart_view import Cart
@@ -21,11 +22,13 @@ class Main(QMainWindow):
         self.authorization = Authorization(main_window=self)
         self.mainMenu = MainView(main_window=self)
         self.cart = Cart(main_window=self)
+        self.order_placement = OrderPlacement(main_window=self)
 
         self.stacked_widget.addWidget(self.registration)
         self.stacked_widget.addWidget(self.authorization)
         self.stacked_widget.addWidget(self.mainMenu)
         self.stacked_widget.addWidget(self.cart)
+        self.stacked_widget.addWidget(self.order_placement)
 
         # self.stacked_widget.setCurrentWidget(self.registration)
         self.stacked_widget.setCurrentWidget(self.mainMenu)

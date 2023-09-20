@@ -77,9 +77,8 @@ class MainView(QMainWindow, Ui_MainWindow):
         self.load_books(books)
 
     def go_cart(self):
-        self.main_window.cart.set_user_id(self.current_user_id)
-
         if self.main_window is not None:
+            self.main_window.cart.set_user_id(self.current_user_id)
             self.main_window.cart.load_cart()
             self.main_window.stacked_widget.setCurrentWidget(self.main_window.cart)
 
@@ -88,7 +87,7 @@ class MainView(QMainWindow, Ui_MainWindow):
 
         for i in range(layout.count()):
             widget = layout.itemAt(i).widget()
-            if widget is not None and widget.book_id == book_id:
+            if widget is not None and (widget.book_id == book_id or book_id == -1):
                 widget.set_added()
 
     def on_remove_book(self, book_id):
@@ -96,5 +95,5 @@ class MainView(QMainWindow, Ui_MainWindow):
 
         for i in range(layout.count()):
             widget = layout.itemAt(i).widget()
-            if widget is not None and widget.book_id == book_id:
+            if widget is not None and (widget.book_id == book_id or book_id == -1):
                 widget.set_removed()

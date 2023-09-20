@@ -1,22 +1,26 @@
 from PyQt5.QtWidgets import *
-from PyQt5 import uic
 from loader import db, cart
 from model.book_card import BookCard
+from design.layouts.cart_layout import Ui_BookStoreCart
+from .helper import show_error_message
 
 
-class Cart(QMainWindow):
+class Cart(QMainWindow, Ui_BookStoreCart):
 
     def __init__(self, *args, main_window=None, current_user_id=-1):
         super(Cart, self).__init__(*args)
-        uic.loadUi(".\\design\\ui\\cart.ui", self)
+        self.setupUi(self)
 
         self.main_window = main_window
         self.current_user_id = current_user_id
 
         self.backBtn.clicked.connect(self.go_back)
+        self.price = 0
 
         cart.addOnAddCallback(self.add_book)
         cart.addOnRemoveCallback(self.remove_book)
+
+        self.orderBtn.clicked.connect(self.go_order_placement)
 
     def load_cart(self):
         self.clear_products()
@@ -56,7 +60,19 @@ class Cart(QMainWindow):
         for book in cart.get_books():
             price += db.get_book_by_id(book)[6]
 
+        self.price = price
         self.totalPrice.setText(f"Общая стоимость: {price} ₽")
 
     def set_user_id(self, user_id):
         self.current_user_id = user_id
+
+    def go_order_placement(self):
+
+        if len(cart.get_books()) == 0:
+            show_error_message("Для оформления заказа нужно добавить желаемые товары в корзину.")
+            return
+
+        if self.main_window is not None:
+            self.main_window.order_placement.set_total_price(self.price)
+            self.main_window.order_placement.set_user_id(self.current_user_id)
+            self.main_window.stacked_widget.setCurrentWidget(self.main_window.order_placement)

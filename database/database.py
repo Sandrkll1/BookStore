@@ -150,6 +150,39 @@ class BookDatabase(BaseDatabase):
         return self.cursor.fetchall()
 
 
+class OrderItem(BaseDatabase):
+
+    def __init__(self, filename):
+        super().__init__(filename)
+        self.create_table()
+
+    def create_table(self):
+        query = """
+            CREATE TABLE IF NOT EXISTS order_items(
+                       order_item_id    INTEGER PRIMARY KEY AUTOINCREMENT,
+                       order_id         INTEGER,
+                       book_id          INTEGER,
+                       price            DOUBLE,
+                       FOREIGN KEY (order_id) REFERENCES orders(order_id),
+                       FOREIGN KEY (book_id) REFERENCES books(book_id)  
+            );
+        """
+        self.cursor.execute(query)
+        self.db.commit()
+
+    def add_order_item(self, order_id, book_id, price):
+        self.cursor.execute("""INSERT INTO order_items(order_id, book_id, price) VALUES(?, ?, ?)""", (order_id, book_id, price, ))
+        self.db.commit()
+
+    def get_order_item_by_id(self, item_id):
+        item = self.cursor.execute("""SELECT * FROM order_items WHERE""")
+        return item.fetchone()
+
+    def get_order_items_by_order_id(self, order_id):
+        items = self.cursor.execute("""SELECT * FROM order_items WHERE order_id = ?""", (order_id, ))
+        return items.fetchall()
+
+
 class OrderDatabase(BaseDatabase):
 
     def __init__(self, filename):
@@ -161,20 +194,22 @@ class OrderDatabase(BaseDatabase):
                    CREATE TABLE IF NOT EXISTS orders(
                        order_id         INTEGER PRIMARY KEY AUTOINCREMENT,
                        user_id          INTEGER,
-                       book_id          INTEGER,
                        price            DOUBLE,
                        address          VARCHAR(90),
-                       FOREIGN KEY (user_id) REFERENCES users(user_id),
-                       FOREIGN KEY (book_id) REFERENCES books(book_id)  
+                       email            VARCHAR(90),
+                       phone            VARCHAR(10),
+                       payment_type    INTEGER,
+                       FOREIGN KEY (user_id) REFERENCES users(user_id)
                    ); 
                    """
 
         self.cursor.execute(query)
         self.db.commit()
 
-    def add_order(self, user_id, book_id, price, address):
-        self.cursor.execute("""INSERT INTO orders(user_id, book_id, price, address) VALUES(?, ?, ?, ?)""", (user_id, book_id, price, address))
+    def add_order(self, user_id, price, address, email, phone, payment_type):
+        self.cursor.execute("""INSERT INTO orders(user_id, price, address, email, phone, payment_type) VALUES(?, ?, ?, ?, ?, ?)""", (user_id, price, address, email, phone, payment_type,))
         self.db.commit()
+        return self.cursor.lastrowid
 
     def get_order_by_id(self, order_id):
         order = self.cursor.execute("""SELECT * FROM orders WHERE order_id = ?""", (order_id,))
@@ -185,13 +220,18 @@ class OrderDatabase(BaseDatabase):
         return orders.fetchall()
 
 
-class Database(UserDatabase, CategoryDatabase, BookDatabase, OrderDatabase):
+class Database(UserDatabase, CategoryDatabase, BookDatabase, OrderItem, OrderDatabase):
     def __init__(self, filename):
         super().__init__(filename)
         CategoryDatabase.create_table(self)
         BookDatabase.create_table(self)
+        OrderItem.create_table(self)
         OrderDatabase.create_table(self)
 
 
 if __name__ == "__main__":
     db = Database(".\\test.db")
+    order_id = db.add_order(12, 13, "sdsf", "fsdf", "sdfd")
+    db.add_order_item(order_id, 1, 3243)
+    db.add_order_item(order_id, 2, 7243)
+    db.add_order_item(order_id, 3, 9243)

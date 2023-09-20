@@ -1,4 +1,4 @@
-from PyQt5 import QtWidgets, uic
+from PyQt5 import QtWidgets
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QPixmap
 from design.layouts.book_card_layout import Ui_BookCard
@@ -9,7 +9,6 @@ class BookCard(QtWidgets.QWidget, Ui_BookCard):
 
     def __init__(self, book_id, title, author, category, year, description, image, main_window=None, parent=None):
         super(BookCard, self).__init__(parent)
-        # uic.loadUi('.\\design\\ui\\book_card.ui', self)
         self.setupUi(self)
 
         self.main_window = main_window

@@ -27,3 +27,8 @@ class Cart:
     def addOnRemoveCallback(self, callback):
         self.onRemoveCallbacks.append(callback)
 
+    def clear_cart(self):
+        self.books.clear()
+
+        for callback in self.onRemoveCallbacks:
+            callback(-1)
