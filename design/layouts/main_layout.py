@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file '.\\layouts\\main_view.ui'
+# Form implementation generated from reading ui file '.\\design\\ui\\main_view.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.9
 #
@@ -12,7 +12,6 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 
 class Ui_MainWindow(object):
-
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(906, 724)
@@ -30,27 +29,63 @@ class Ui_MainWindow(object):
         self.leftMenuLayout = QtWidgets.QVBoxLayout()
         self.leftMenuLayout.setObjectName("leftMenuLayout")
         self.searchBar = QtWidgets.QLineEdit(self.centralwidget)
-        self.searchBar.setStyleSheet("font: 12pt \"MS Shell Dlg 2\";")
+        self.searchBar.setStyleSheet("\n"
+"               font: 14pt \"MS Shell Dlg 2\"; \n"
+"               padding: 10px;\n"
+"               border: 2px solid #aaa;\n"
+"               border-radius: 5px;\n"
+"           ")
         self.searchBar.setObjectName("searchBar")
         self.leftMenuLayout.addWidget(self.searchBar)
         self.categoriesList = QtWidgets.QListWidget(self.centralwidget)
-        self.categoriesList.setStyleSheet("font: 14pt \"MS Shell Dlg 2\";")
+        self.categoriesList.setStyleSheet("\n"
+"               font: 16pt \"MS Shell Dlg 2\"; \n"
+"               border: 1px solid #ddd;\n"
+"\n"
+"               /* Стиль для элементов */\n"
+"               QListWidget::item {\n"
+"                   padding: 10px 20px; \n"
+"                   margin: 5px 0; \n"
+"                   border-radius: 4px;\n"
+"                   color: #555;\n"
+"               }\n"
+"\n"
+"               QListWidget::item:hover {\n"
+"                   background-color: #ddd;\n"
+"                   color: #333;\n"
+"               }\n"
+"\n"
+"               QListWidget::item:selected {\n"
+"                   background-color: #5a9;\n"
+"                   color: white;\n"
+"               }\n"
+"           ")
         self.categoriesList.setObjectName("categoriesList")
-        item = QtWidgets.QListWidgetItem()
-        self.categoriesList.addItem(item)
-        item = QtWidgets.QListWidgetItem()
-        self.categoriesList.addItem(item)
-        item = QtWidgets.QListWidgetItem()
-        self.categoriesList.addItem(item)
         self.leftMenuLayout.addWidget(self.categoriesList)
+        self.deleteFiltersBtn = QtWidgets.QPushButton(self.centralwidget)
+        self.deleteFiltersBtn.setMinimumSize(QtCore.QSize(0, 30))
+        font = QtGui.QFont()
+        font.setPointSize(12)
+        self.deleteFiltersBtn.setFont(font)
+        self.deleteFiltersBtn.setObjectName("deleteFiltersBtn")
+        self.leftMenuLayout.addWidget(self.deleteFiltersBtn)
+        self.cartBtn = QtWidgets.QPushButton(self.centralwidget)
+        self.cartBtn.setMinimumSize(QtCore.QSize(0, 30))
+        font = QtGui.QFont()
+        font.setPointSize(12)
+        self.cartBtn.setFont(font)
+        self.cartBtn.setObjectName("cartBtn")
+        self.leftMenuLayout.addWidget(self.cartBtn)
         self.containerLayout.addLayout(self.leftMenuLayout)
         self.productsScrollArea = QtWidgets.QScrollArea(self.centralwidget)
         self.productsScrollArea.setWidgetResizable(True)
+        self.productsScrollArea.setAlignment(QtCore.Qt.AlignJustify|QtCore.Qt.AlignVCenter)
         self.productsScrollArea.setObjectName("productsScrollArea")
         self.productsContainer = QtWidgets.QWidget()
         self.productsContainer.setGeometry(QtCore.QRect(0, 0, 438, 638))
         self.productsContainer.setObjectName("productsContainer")
         self.productsVerticalLayout = QtWidgets.QVBoxLayout(self.productsContainer)
+        self.productsVerticalLayout.setSpacing(10)
         self.productsVerticalLayout.setObjectName("productsVerticalLayout")
         self.productsScrollArea.setWidget(self.productsContainer)
         self.containerLayout.addWidget(self.productsScrollArea)
@@ -65,12 +100,5 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(_translate("MainWindow", "Bookstore"))
         self.titleLabel.setText(_translate("MainWindow", "Bookstore"))
         self.searchBar.setPlaceholderText(_translate("MainWindow", "Search books..."))
-        __sortingEnabled = self.categoriesList.isSortingEnabled()
-        self.categoriesList.setSortingEnabled(False)
-        item = self.categoriesList.item(0)
-        item.setText(_translate("MainWindow", "Drama"))
-        item = self.categoriesList.item(1)
-        item.setText(_translate("MainWindow", "Fantasy"))
-        item = self.categoriesList.item(2)
-        item.setText(_translate("MainWindow", "Fary-tail"))
-        self.categoriesList.setSortingEnabled(__sortingEnabled)
+        self.deleteFiltersBtn.setText(_translate("MainWindow", "Убрать Фильтрацию"))
+        self.cartBtn.setText(_translate("MainWindow", "Корзина"))
