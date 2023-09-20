@@ -9,8 +9,7 @@ class MainView(QMainWindow, Ui_MainWindow):
 
     def __init__(self, *args, main_window=None, current_user_id=-1):
         super(MainView, self).__init__(*args)
-        # self.setupUi(self)
-        uic.loadUi(".\\design\\ui\\main_view.ui", self)
+        self.setupUi(self)
 
         self.setMinimumWidth(800)
         self.setMinimumHeight(600)
