@@ -1,7 +1,6 @@
 from PyQt5.QtWidgets import *
 from .book_card import BookCard
 from design.layouts.main_layout import Ui_MainWindow
-from PyQt5 import uic
 from loader import db, cart
 
 
