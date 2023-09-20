@@ -46,8 +46,6 @@ class BookCard(QtWidgets.QWidget, Ui_BookCard):
             cart.remove_book(self.book_id)
             self.set_removed()
 
-        print(cart.get_books())
-
     def set_added(self):
         self.addCartBtn.setText("Убрать Из Корзины")
         self.addCartBtn.setStyleSheet('background-color: rgb(255, 0, 51);')
