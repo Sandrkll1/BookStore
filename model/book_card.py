@@ -1,16 +1,18 @@
 from PyQt5 import QtWidgets
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt, QTimer
 from PyQt5.QtGui import QPixmap
 from design.layouts.book_card_layout import Ui_BookCard
-from loader import cart
+from .helper import show_question_message
+from loader import cart, db
 
 
 class BookCard(QtWidgets.QWidget, Ui_BookCard):
 
-    def __init__(self, book_id, title, author, category, year, description, image, main_window=None, parent=None):
+    def __init__(self, book_id, title, author, category, year, description, image, is_admin=False, main_window=None, parent=None):
         super(BookCard, self).__init__(parent)
         self.setupUi(self)
 
+        self.is_admin = is_admin
         self.main_window = main_window
 
         self.book_id = book_id
@@ -29,6 +31,22 @@ class BookCard(QtWidgets.QWidget, Ui_BookCard):
             self.bookImage.setScaledContents(True)
 
         self.addCartBtn.clicked.connect(self.add_to_cart)
+
+        if is_admin:
+            QTimer.singleShot(0, self.modify_card)
+
+    def modify_card(self):
+        self.infoBtn.hide()
+
+        self.addCartBtn.clicked.disconnect()
+        self.addCartBtn.setText("Удалить книгу")
+        self.addCartBtn.setStyleSheet('background-color: rgb(255, 0, 51);')
+        self.addCartBtn.clicked.connect(self.click_delete)
+
+    def click_delete(self):
+        if show_question_message("Вы уверены, что хотите удалить?"):
+            db.remove_book(self.book_id)
+            self.deleteLater()
 
     @staticmethod
     def check_books(books):

@@ -44,25 +44,60 @@ def show_success_message(message):
 
     success_dialog.setStyleSheet("""
         QMessageBox {
-            background-color: transparent;
+            background-color: #E6F9E0;
             font-size: 16px;
-            color: #004d40;  # Зеленый цвет текста
-            border: 2px solid #4CAF50;  # Зеленый цвет рамки
+            color: #008D3F;
+            border: 2px solid #008D3F;
             border-radius: 5px;
         }
         QMessageBox QLabel {
             background-color: transparent;
+            color: #000000;
         }
         QMessageBox QPushButton {
-            background-color: #4CAF50;  # Зеленый цвет кнопки
+            background-color: #008D3F;
             color: #FFFFFF;
             padding: 10px;
             border-radius: 3px;
             min-width: 80px;
         }
         QMessageBox QPushButton:hover {
-            background-color: #388E3C;  # Темнее зеленый при наведении
+            background-color: #006F2E;
         }
     """)
 
     success_dialog.exec_()
+
+
+def show_question_message(question) -> bool:
+    question_dialog = QMessageBox()
+    question_dialog.setWindowTitle("Вопрос")
+    question_dialog.setIcon(QMessageBox.Question)
+    question_dialog.setText(question)
+    question_dialog.setStandardButtons(QMessageBox.Yes | QMessageBox.No)
+
+    question_dialog.setStyleSheet("""
+        QMessageBox {
+            background-color: #E0F0F9;
+            font-size: 16px;
+            color: #0058D4;
+            border: 2px solid #0058D4;
+            border-radius: 5px;
+        }
+        QMessageBox QLabel {
+            background-color: transparent;
+            color: #000000;
+        }
+        QMessageBox QPushButton {
+            background-color: #0058D4;
+            color: #FFFFFF;
+            padding: 10px;
+            border-radius: 3px;
+            min-width: 80px;
+        }
+        QMessageBox QPushButton:hover {
+            background-color: #003F8F;
+        }
+    """)
+
+    return question_dialog.exec_() == QMessageBox.Yes

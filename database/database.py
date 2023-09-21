@@ -141,13 +141,17 @@ class BookDatabase(BaseDatabase):
         books = self.cursor.execute("""SELECT * FROM books""")
         return books.fetchall()
 
-    def get_books_by_category(self, category_id):
+    def get_books_by_category(self, category_id: int):
         books = self.cursor.execute("""SELECT * FROM books WHERE category_id = ?""", (category_id,))
         return books.fetchall()
 
     def search_books_name(self, book_name: str):
         self.cursor.execute("""SELECT * FROM books WHERE LOWER(book_name) LIKE LOWER(?)""", (f"%{book_name.lower()}%",))
         return self.cursor.fetchall()
+
+    def remove_book(self, book_id: int):
+        self.cursor.execute("""DELETE FROM books WHERE book_id = ?""", (book_id,))
+        self.db.commit()
 
 
 class OrderItem(BaseDatabase):
@@ -156,6 +160,7 @@ class OrderItem(BaseDatabase):
         super().__init__(filename)
         self.create_table()
 
+    # заменить цену на количесто
     def create_table(self):
         query = """
             CREATE TABLE IF NOT EXISTS order_items(

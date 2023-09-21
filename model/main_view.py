@@ -36,7 +36,7 @@ class MainView(QMainWindow, Ui_MainWindow):
         books_cards = []
 
         for book in books:
-            book_card = BookCard(book[0], book[2], book[3], db.get_category_name(book[1]), book[4], book[5], book[7], self.main_window)
+            book_card = BookCard(book[0], book[2], book[3], db.get_category_name(book[1]), book[4], book[5], book[7], main_window=self.main_window)
             books_cards.append(book_card)
             self.productsVerticalLayout.addWidget(book_card)
 
@@ -52,9 +52,8 @@ class MainView(QMainWindow, Ui_MainWindow):
         self.current_user_id = user_id
 
     def clear_products(self):
-        layout = self.productsContainer.layout()  # Get the QVBoxLayout
+        layout = self.productsContainer.layout()
 
-        # Clear all child widgets from the QVBoxLayout
         for i in reversed(range(layout.count())):
             widget = layout.itemAt(i).widget()
             if widget is not None:

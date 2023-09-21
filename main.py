@@ -1,5 +1,7 @@
 import sys
 from PyQt5.QtWidgets import *
+
+from model.admin_panel import AdminPanel
 from model.main_view import MainView
 from model.order_placement import OrderPlacement
 from model.registration import Registration
@@ -23,15 +25,18 @@ class Main(QMainWindow):
         self.mainMenu = MainView(main_window=self)
         self.cart = Cart(main_window=self)
         self.order_placement = OrderPlacement(main_window=self)
+        self.admin_panel = AdminPanel(main_window=self)
 
         self.stacked_widget.addWidget(self.registration)
         self.stacked_widget.addWidget(self.authorization)
         self.stacked_widget.addWidget(self.mainMenu)
         self.stacked_widget.addWidget(self.cart)
         self.stacked_widget.addWidget(self.order_placement)
+        self.stacked_widget.addWidget(self.admin_panel)
 
         # self.stacked_widget.setCurrentWidget(self.registration)
-        self.stacked_widget.setCurrentWidget(self.mainMenu)
+        # self.stacked_widget.setCurrentWidget(self.mainMenu)
+        self.stacked_widget.setCurrentWidget(self.admin_panel)
 
 
 if __name__ == "__main__":

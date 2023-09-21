@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>AdminPanel</class>
+ <widget class="QMainWindow" name="AdminPanel">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>958</width>
+    <height>708</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Admin Panel - Bookstore</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="mainLayout">
+    <item>
+     <widget class="QLabel" name="titleLabel">
+      <property name="styleSheet">
+       <string notr="true">font: 36pt &quot;MS Shell Dlg 2&quot;;</string>
+      </property>
+      <property name="text">
+       <string>Admin Panel</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QTabWidget" name="tabWidget">
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <widget class="QWidget" name="booksTab">
+       <attribute name="title">
+        <string>Книги</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_2">
+        <item>
+         <widget class="QLineEdit" name="searchBar">
+          <property name="styleSheet">
+           <string notr="true">font: 14pt &quot;MS Shell Dlg 2&quot;; padding: 10px; border: 2px solid #aaa; border-radius: 5px;</string>
+          </property>
+          <property name="placeholderText">
+           <string>Поиск книг...</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QScrollArea" name="booksScrollArea">
+          <property name="widgetResizable">
+           <bool>true</bool>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignJustify|Qt::AlignVCenter</set>
+          </property>
+          <widget class="QWidget" name="booksContainer">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>0</y>
+             <width>914</width>
+             <height>489</height>
+            </rect>
+           </property>
+           <layout class="QVBoxLayout" name="productsVerticalLayout">
+            <property name="spacing">
+             <number>10</number>
+            </property>
+            <item>
+             <layout class="QVBoxLayout" name="booksLayout"/>
+            </item>
+           </layout>
+          </widget>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pushButton">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>30</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>12</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>Добавить книгу</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="orderTab">
+       <attribute name="title">
+        <string>Заказы</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_3">
+        <item alignment="Qt::AlignTop">
+         <widget class="QLineEdit" name="orderSearchBar">
+          <property name="styleSheet">
+           <string notr="true">font: 14pt &quot;MS Shell Dlg 2&quot;; padding: 10px; border: 2px solid #aaa; border-radius: 5px;</string>
+          </property>
+          <property name="placeholderText">
+           <string>Имя пользователя...</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QScrollArea" name="ordersScrollArea">
+          <property name="widgetResizable">
+           <bool>true</bool>
+          </property>
+          <widget class="QWidget" name="ordersContainer">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>0</y>
+             <width>914</width>
+             <height>525</height>
+            </rect>
+           </property>
+           <layout class="QVBoxLayout" name="ordersContainerLayout">
+            <property name="spacing">
+             <number>10</number>
+            </property>
+            <item>
+             <layout class="QVBoxLayout" name="ordersLayout"/>
+            </item>
+           </layout>
+          </widget>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

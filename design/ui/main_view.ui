@@ -43,7 +43,7 @@
            </string>
           </property>
           <property name="placeholderText">
-           <string>Search books...</string>
+           <string>Поиск книг...</string>
           </property>
          </widget>
         </item>

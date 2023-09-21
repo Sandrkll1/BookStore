@@ -29,7 +29,7 @@ class Cart(QMainWindow, Ui_BookStoreCart):
 
         for book_id in cart.get_books():
             book = db.get_book_by_id(book_id)
-            book_card = BookCard(book[0], book[2], book[3], db.get_category_name(book[1]), book[4], book[5], book[7], self.main_window)
+            book_card = BookCard(book[0], book[2], book[3], db.get_category_name(book[1]), book[4], book[5], book[7], main_window=self.main_window)
             books_cards.append(book_card)
             self.bookList.addWidget(book_card)
 

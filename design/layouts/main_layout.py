@@ -99,6 +99,6 @@ class Ui_MainWindow(object):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "Bookstore"))
         self.titleLabel.setText(_translate("MainWindow", "Bookstore"))
-        self.searchBar.setPlaceholderText(_translate("MainWindow", "Search books..."))
+        self.searchBar.setPlaceholderText(_translate("MainWindow", "Поиск книг..."))
         self.deleteFiltersBtn.setText(_translate("MainWindow", "Убрать Фильтрацию"))
         self.cartBtn.setText(_translate("MainWindow", "Корзина"))
