@@ -26,8 +26,8 @@ class UserDatabase(BaseDatabase):
         query = """
                    CREATE TABLE IF NOT EXISTS users(
                        user_id          INTEGER PRIMARY KEY AUTOINCREMENT,
-                       username         VARCHAR(60),
-                       password         VARCHAR(60), 
+                       username         TEXT,
+                       password         TEXT, 
                        is_admin         BOOLEAN DEFAULT FALSE
                    ); 
                    """
@@ -109,7 +109,7 @@ class BookDatabase(BaseDatabase):
                        book_id          INTEGER PRIMARY KEY AUTOINCREMENT,
                        category_id      INTEGER,
                        book_name        TEXT,
-                       author           VARCHAR(60), 
+                       author           TEXT, 
                        year             INTEGER,
                        description      TEXT,
                        price            DOUBLE,
@@ -200,9 +200,9 @@ class OrderDatabase(BaseDatabase):
                        order_id         INTEGER PRIMARY KEY AUTOINCREMENT,
                        user_id          INTEGER,
                        price            DOUBLE,
-                       address          VARCHAR(90),
-                       email            VARCHAR(90),
-                       phone            VARCHAR(10),
+                       address          TEXT,
+                       email            TEXT,
+                       phone            TEXT,
                        payment_type    INTEGER,
                        FOREIGN KEY (user_id) REFERENCES users(user_id)
                    ); 

@@ -18,6 +18,7 @@ class AdminPanel(QMainWindow, Ui_AdminPanel):
         self.load_books()
 
         self.searchBar.textChanged.connect(self.search_books)
+        self.addBookBtn.clicked.connect(self.add_book)
 
     def load_books(self, books=None):
         if books is None:
@@ -44,3 +45,8 @@ class AdminPanel(QMainWindow, Ui_AdminPanel):
         books = db.search_books_name(self.searchBar.text())
         self.clear_products()
         self.load_books(books)
+
+    def add_book(self):
+
+        if self.main_window is not None:
+            self.main_window.stacked_widget.setCurrentWidget(self.main_window.add_book_view)

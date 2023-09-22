@@ -1,6 +1,7 @@
 import sys
 from PyQt5.QtWidgets import *
 
+from model.add_book_view import AddBookView
 from model.admin_panel import AdminPanel
 from model.main_view import MainView
 from model.order_placement import OrderPlacement
@@ -26,6 +27,7 @@ class Main(QMainWindow):
         self.cart = Cart(main_window=self)
         self.order_placement = OrderPlacement(main_window=self)
         self.admin_panel = AdminPanel(main_window=self)
+        self.add_book_view = AddBookView(main_window=self)
 
         self.stacked_widget.addWidget(self.registration)
         self.stacked_widget.addWidget(self.authorization)
@@ -33,10 +35,12 @@ class Main(QMainWindow):
         self.stacked_widget.addWidget(self.cart)
         self.stacked_widget.addWidget(self.order_placement)
         self.stacked_widget.addWidget(self.admin_panel)
+        self.stacked_widget.addWidget(self.add_book_view)
 
         # self.stacked_widget.setCurrentWidget(self.registration)
         # self.stacked_widget.setCurrentWidget(self.mainMenu)
         self.stacked_widget.setCurrentWidget(self.admin_panel)
+        # self.stacked_widget.setCurrentWidget(self.add_book_view)
 
 
 if __name__ == "__main__":

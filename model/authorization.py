@@ -33,6 +33,7 @@ class Authorization(QMainWindow, Ui_MainWindow):
         if len(username.strip()) == 0 or len(password.strip()) == 0:
             QMessageBox.information(self, "Error", "Please fill all fields")
         else:
+            db.user_in_db(username)
             if db.check_user(username, password):
                 self.main_window.mainMenu.set_user_id(db.get_user(username)[0])
                 self.main_window.stacked_widget.setCurrentWidget(self.main_window.mainMenu)
