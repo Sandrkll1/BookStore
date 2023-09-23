@@ -67,6 +67,8 @@ class OrderPlacement(QMainWindow, Ui_OrderPlacement):
 
         show_success_message("Ваш заказ успешно принят!")
         cart.clear_cart()
+        self.main_window.mainMenu.clear_products()
+        self.main_window.mainMenu.load_books()
         self.main_window.stacked_widget.setCurrentWidget(self.main_window.mainMenu)
 
     def cancel_order(self):

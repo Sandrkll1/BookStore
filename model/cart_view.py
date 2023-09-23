@@ -15,8 +15,8 @@ class Cart(QMainWindow, Ui_BookStoreCart):
         self.current_user_id = current_user_id
         self.price = 0
 
-        cart.addOnAddCallback(self.calculate_total_price)
-        cart.addOnRemoveCallback(self.calculate_total_price)
+        cart.addOnAddCallback(self.on_add_remove_book)
+        cart.addOnRemoveCallback(self.on_add_remove_book)
         cart.addOnUpdateCallback(self.update_book_count)
 
         self.backBtn.clicked.connect(self.go_back)
@@ -31,7 +31,7 @@ class Cart(QMainWindow, Ui_BookStoreCart):
             book = self.get_book_by_id(_book[0])
             book_card = BookCard(
                 book[0], book[2], book[3], self.get_category_name(book[1]),
-                book[4], book[5], book[7], book[6], main_window=self.main_window
+                book[4], book[5], book[7], book[6], main_window=self.main_window, parent_window=self
             )
             book_card.set_count(_book[1])
             book_cards.append(book_card)
@@ -57,6 +57,11 @@ class Cart(QMainWindow, Ui_BookStoreCart):
     def go_back(self):
         if self.main_window:
             self.main_window.stacked_widget.setCurrentWidget(self.main_window.mainMenu)
+
+    def on_add_remove_book(self, *args):
+        self.clear_products()
+        self.load_cart()
+        self.calculate_total_price()
 
     def calculate_total_price(self, *args):
         price = 0

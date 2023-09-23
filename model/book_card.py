@@ -8,12 +8,13 @@ from loader import cart, db
 
 class BookCard(QtWidgets.QWidget, Ui_BookCard):
 
-    def __init__(self, book_id, title, author, category, year, description, image, price=0, is_admin=False, main_window=None, parent=None):
+    def __init__(self, book_id, title, author, category, year, description, image, price=0, is_admin=False, main_window=None, parent=None, parent_window=None):
         super(BookCard, self).__init__(parent)
         self.setupUi(self)
 
         self.is_admin = is_admin
         self.main_window = main_window
+        self.parent_window = parent_window
 
         self.book_id = book_id
         self.description = description
@@ -34,13 +35,12 @@ class BookCard(QtWidgets.QWidget, Ui_BookCard):
             self.bookImage.setScaledContents(True)
 
         self.addCartBtn.clicked.connect(self.add_to_cart)
+        self.infoBtn.clicked.connect(self.show_book_info)
 
         if is_admin:
             QTimer.singleShot(0, self.modify_card)
 
     def modify_card(self):
-        self.infoBtn.hide()
-
         self.addCartBtn.clicked.disconnect()
         self.addCartBtn.setText("Удалить книгу")
         self.addCartBtn.setStyleSheet('background-color: rgb(255, 0, 51);')
@@ -85,3 +85,10 @@ class BookCard(QtWidgets.QWidget, Ui_BookCard):
     def set_count(self, book_count):
         self.book_count = book_count
         self.countSpinBox.setValue(book_count)
+
+    def show_book_info(self):
+
+        if self.main_window is not None:
+            self.main_window.book_info_view.set_last_window(self.parent_window)
+            self.main_window.book_info_view.set_book_id(self.book_id)
+            self.main_window.stacked_widget.setCurrentWidget(self.main_window.book_info_view)

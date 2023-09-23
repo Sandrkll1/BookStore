@@ -37,7 +37,7 @@ class MainView(QMainWindow, Ui_MainWindow):
         books_cards = []
 
         for book in books:
-            book_card = BookCard(book[0], book[2], book[3], db.get_category_name(book[1]), book[4], book[5], book[7], book[6], main_window=self.main_window)
+            book_card = BookCard(book[0], book[2], book[3], db.get_category_name(book[1]), book[4], book[5], book[7], book[6], main_window=self.main_window, parent_window=self)
             books_cards.append(book_card)
             self.productsVerticalLayout.addWidget(book_card)
 
