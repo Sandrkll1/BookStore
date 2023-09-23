@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QMainWindow, QMessageBox
+from PyQt5.QtWidgets import QMainWindow
 from design.layouts.order_placement_layout import Ui_OrderPlacement
 from loader import db, cart
 from .helper import show_error_message, show_success_message
@@ -62,8 +62,8 @@ class OrderPlacement(QMainWindow, Ui_OrderPlacement):
             return
 
         order_id = db.add_order(self.current_user_id, self.price, name, email, phone, self.paymentComboBox.currentIndex())
-        for book_id in cart.get_books():
-            db.add_order_item(order_id, book_id, db.get_book_by_id(book_id)[6])
+        for book in cart.get_books():
+            db.add_order_item(order_id, book[0], book[1])
 
         show_success_message("Ваш заказ успешно принят!")
         cart.clear_cart()

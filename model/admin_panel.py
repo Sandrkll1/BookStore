@@ -27,7 +27,7 @@ class AdminPanel(QMainWindow, Ui_AdminPanel):
         books_cards = []
 
         for book in books:
-            book_card = BookCard(book[0], book[2], book[3], db.get_category_name(book[1]), book[4], book[5], book[7], True, self.main_window)
+            book_card = BookCard(book[0], book[2], book[3], db.get_category_name(book[1]), book[4], book[5], book[7], book[6], True, self.main_window)
             books_cards.append(book_card)
             self.booksLayout.addWidget(book_card)
 
@@ -36,7 +36,7 @@ class AdminPanel(QMainWindow, Ui_AdminPanel):
     def clear_products(self):
         layout = self.booksLayout.layout()
 
-        for i in reversed(range(layout.count())):
+        for i in reversed(range(layout.book_count())):
             widget = layout.itemAt(i).widget()
             if widget is not None:
                 widget.deleteLater()

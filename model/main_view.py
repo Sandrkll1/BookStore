@@ -18,6 +18,7 @@ class MainView(QMainWindow, Ui_MainWindow):
 
         cart.addOnAddCallback(self.on_add_book)
         cart.addOnRemoveCallback(self.on_remove_book)
+        cart.addOnUpdateCallback(self.on_update_book)
 
         self.containerLayout.setStretch(0, 1)
         self.containerLayout.setStretch(1, 3)
@@ -36,7 +37,7 @@ class MainView(QMainWindow, Ui_MainWindow):
         books_cards = []
 
         for book in books:
-            book_card = BookCard(book[0], book[2], book[3], db.get_category_name(book[1]), book[4], book[5], book[7], main_window=self.main_window)
+            book_card = BookCard(book[0], book[2], book[3], db.get_category_name(book[1]), book[4], book[5], book[7], book[6], main_window=self.main_window)
             books_cards.append(book_card)
             self.productsVerticalLayout.addWidget(book_card)
 
@@ -79,13 +80,14 @@ class MainView(QMainWindow, Ui_MainWindow):
             self.main_window.cart.load_cart()
             self.main_window.stacked_widget.setCurrentWidget(self.main_window.cart)
 
-    def on_add_book(self, book_id):
+    def on_add_book(self, book_id, book_count):
         layout = self.productsContainer.layout()
 
         for i in range(layout.count()):
             widget = layout.itemAt(i).widget()
             if widget is not None and (widget.book_id == book_id or book_id == -1):
                 widget.set_added()
+                widget.set_count(book_count)
 
     def on_remove_book(self, book_id):
         layout = self.productsContainer.layout()
@@ -94,3 +96,11 @@ class MainView(QMainWindow, Ui_MainWindow):
             widget = layout.itemAt(i).widget()
             if widget is not None and (widget.book_id == book_id or book_id == -1):
                 widget.set_removed()
+
+    def on_update_book(self, book_id, book_count):
+        layout = self.productsContainer.layout()
+
+        for i in range(layout.count()):
+            widget = layout.itemAt(i).widget()
+            if widget is not None and (widget.book_id == book_id or book_id == -1):
+                widget.set_count(book_count)

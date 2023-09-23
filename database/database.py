@@ -167,7 +167,7 @@ class OrderItem(BaseDatabase):
                        order_item_id    INTEGER PRIMARY KEY AUTOINCREMENT,
                        order_id         INTEGER,
                        book_id          INTEGER,
-                       price            DOUBLE,
+                       quantity         DOUBLE,
                        FOREIGN KEY (order_id) REFERENCES orders(order_id),
                        FOREIGN KEY (book_id) REFERENCES books(book_id)  
             );
@@ -175,8 +175,8 @@ class OrderItem(BaseDatabase):
         self.cursor.execute(query)
         self.db.commit()
 
-    def add_order_item(self, order_id, book_id, price):
-        self.cursor.execute("""INSERT INTO order_items(order_id, book_id, price) VALUES(?, ?, ?)""", (order_id, book_id, price, ))
+    def add_order_item(self, order_id, book_id, quantity):
+        self.cursor.execute("""INSERT INTO order_items(order_id, book_id, quantity) VALUES(?, ?, ?)""", (order_id, book_id, quantity, ))
         self.db.commit()
 
     def get_order_item_by_id(self, item_id):
