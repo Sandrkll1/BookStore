@@ -1,4 +1,5 @@
 from loader import db, default_image
+import random
 
 db.add_user("test1", "123456789")
 db.add_user("test2", "1234", True)
@@ -69,3 +70,42 @@ db.add_book("Стихи", "Роберт Фрост", 1916, "Избранные �
 db.add_book("Бытие и время", "Мартин Хайдеггер", 1927, "Философский трактат", 600, 10, default_image)
 db.add_book("Мир как воля и представление", "Артур Шопенгауэр", 1819, "Основные идеи философии Шопенгауэра", 700, 10, default_image)
 db.add_book("Критика чистого разума", "Иммануил Кант", 1781, "Основополагающий труд Канта", 650, 10, default_image)
+
+
+def add_sample_orders(num_orders=30):
+    users = db.get_all_users()
+
+    if not users:
+        print("No users in the database!")
+        return
+
+    addresses = ["Main St.", "Elm St.", "Park Ave.", "Broadway", "5th Ave."]
+    emails = ["example@example.com", "test@test.com", "user@domain.com"]
+    phone_numbers = ["555-1234", "555-5678", "555-8765"]
+    payment_types = [1, 2, 3]  # Предположим, что 1, 2 и 3 представляют разные типы оплаты
+
+    books = db.get_all_books()  # получаем все книги из базы данных
+
+    if not books:
+        print("No books in the database!")
+        return
+
+    for _ in range(num_orders):
+        user_id = random.choice(users)[0]  # Выбираем случайного пользователя
+        price = round(random.uniform(10, 500), 2)  # Случайная цена от 10 до 500
+        address = random.choice(addresses)
+        email = random.choice(emails)
+        phone = random.choice(phone_numbers)
+        payment_type = random.choice(payment_types)
+
+        order_id = db.add_order(user_id, price, address, email, phone, payment_type)
+
+        # Добавляем случайные элементы заказа (от 1 до 5 элементов)
+        for _ in range(random.randint(1, 5)):
+            book = random.choice(books)  # выбираем случайную книгу
+            book_id = book[0]
+            quantity = random.randint(1, 5)  # Количество от 1 до 5
+            db.add_order_item(order_id, book_id, quantity)
+
+
+add_sample_orders()

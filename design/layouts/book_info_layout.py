@@ -138,7 +138,7 @@ class Ui_BookDetails(object):
         _translate = QtCore.QCoreApplication.translate
         BookDetails.setWindowTitle(_translate("BookDetails", "Book Details"))
         self.backButton.setText(_translate("BookDetails", "← Назад"))
-        self.label.setText(_translate("BookDetails", "Детальная Информация О Кнгие"))
+        self.label.setText(_translate("BookDetails", "Детальная Информация О Книге"))
         self.coverImageLabel.setText(_translate("BookDetails", "label"))
         self.bookNameLabelInfo.setText(_translate("BookDetails", "Название книги:"))
         self.bookNameLabel.setText(_translate("BookDetails", "TextLabel"))

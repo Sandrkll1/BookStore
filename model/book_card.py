@@ -91,4 +91,6 @@ class BookCard(QtWidgets.QWidget, Ui_BookCard):
         if self.main_window is not None:
             self.main_window.book_info_view.set_last_window(self.parent_window)
             self.main_window.book_info_view.set_book_id(self.book_id)
+            self.main_window.book_info_view.set_is_admin(self.is_admin)
+            self.main_window.book_info_view.set_parent_window(self)
             self.main_window.stacked_widget.setCurrentWidget(self.main_window.book_info_view)

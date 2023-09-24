@@ -26,8 +26,40 @@ class Ui_AdminPanel(object):
         self.mainLayout.addWidget(self.titleLabel)
         self.tabWidget = QtWidgets.QTabWidget(self.centralwidget)
         self.tabWidget.setMinimumSize(QtCore.QSize(0, 0))
+        self.tabWidget.setStyleSheet("QTabWidget::pane {\n"
+"       border-top: 3px solid #5a5a5a; /* Provides a border at the top of the content area */\n"
+"   }\n"
+"\n"
+"   QTabBar::tab {\n"
+"       border: 1px solid #aaa;    /* Border around each tab */\n"
+"       border-bottom: none;       /* Remove the bottom border to merge with the content pane */\n"
+"       border-top-left-radius: 10px;  /* Rounded top-left corner */\n"
+"       border-top-right-radius: 10px; /* Rounded top-right corner */\n"
+"       padding: 10px;             /* Space around the text */\n"
+"       margin: 2px;               /* Space between tabs */\n"
+"       margin-bottom: 0px;        /* Reduce bottom margin to let tabs touch the content pane */\n"
+"       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */\n"
+"       transition: 0.3s;          /* Transition effect for smooth changes */\n"
+"        font-size: 14pt;\n"
+"        width: 100px;\n"
+"        height: 15px;\n"
+"   }\n"
+"\n"
+"   QTabBar::tab:selected {\n"
+"       border-color: #555;       /* Darker border for the selected tab */\n"
+"       box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15); /* Slightly more pronounced shadow for the selected tab */\n"
+"   }\n"
+"\n"
+"\n"
+"   QTabBar::tab:!selected {\n"
+"       margin-top: 3px;            /* Unselected tabs are slightly lower */\n"
+"       box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05); /* Subtle shadow for unselected tabs */\n"
+"   }")
         self.tabWidget.setObjectName("tabWidget")
         self.booksTab = QtWidgets.QWidget()
+        font = QtGui.QFont()
+        font.setPointSize(12)
+        self.booksTab.setFont(font)
         self.booksTab.setObjectName("booksTab")
         self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.booksTab)
         self.verticalLayout_2.setObjectName("verticalLayout_2")
@@ -40,7 +72,7 @@ class Ui_AdminPanel(object):
         self.booksScrollArea.setAlignment(QtCore.Qt.AlignJustify|QtCore.Qt.AlignVCenter)
         self.booksScrollArea.setObjectName("booksScrollArea")
         self.booksContainer = QtWidgets.QWidget()
-        self.booksContainer.setGeometry(QtCore.QRect(0, 0, 914, 489))
+        self.booksContainer.setGeometry(QtCore.QRect(0, 0, 920, 473))
         self.booksContainer.setObjectName("booksContainer")
         self.productsVerticalLayout = QtWidgets.QVBoxLayout(self.booksContainer)
         self.productsVerticalLayout.setSpacing(10)
@@ -70,7 +102,7 @@ class Ui_AdminPanel(object):
         self.ordersScrollArea.setWidgetResizable(True)
         self.ordersScrollArea.setObjectName("ordersScrollArea")
         self.ordersContainer = QtWidgets.QWidget()
-        self.ordersContainer.setGeometry(QtCore.QRect(0, 0, 98, 28))
+        self.ordersContainer.setGeometry(QtCore.QRect(0, 0, 920, 509))
         self.ordersContainer.setObjectName("ordersContainer")
         self.ordersContainerLayout = QtWidgets.QVBoxLayout(self.ordersContainer)
         self.ordersContainerLayout.setSpacing(10)
@@ -95,5 +127,5 @@ class Ui_AdminPanel(object):
         self.searchBar.setPlaceholderText(_translate("AdminPanel", "Поиск книг..."))
         self.addBookBtn.setText(_translate("AdminPanel", "Добавить книгу"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.booksTab), _translate("AdminPanel", "Книги"))
-        self.orderSearchBar.setPlaceholderText(_translate("AdminPanel", "Имя пользователя..."))
+        self.orderSearchBar.setPlaceholderText(_translate("AdminPanel", "ID Пользователя..."))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.orderTab), _translate("AdminPanel", "Заказы"))

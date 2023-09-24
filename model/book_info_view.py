@@ -1,22 +1,23 @@
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt, QTimer
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtWidgets import *
 from design.layouts.book_info_layout import Ui_BookDetails
 from loader import db, cart
+from .helper import show_question_message
 
-
-# pyuic5 -o .\\design\\layouts\\book_info_layout.py .\\design\\ui\\book_info_view.ui
 
 class BookInfoView(QMainWindow, Ui_BookDetails):
 
-    def __init__(self, *args, book_id=-1, main_window=None, current_user_id=-1):
+    def __init__(self, *args, book_id=-1, main_window=None, current_user_id=-1, is_admin=False):
         super(BookInfoView, self).__init__(*args)
         self.setupUi(self)
 
         self.book_id = book_id
         self.main_window = main_window
         self.current_user_id = current_user_id
+        self.is_admin = is_admin
         self.last_window = None
+        self.parent_window = None
 
         cart.addOnAddCallback(self.on_add_book)
         cart.addOnRemoveCallback(self.on_remove_book)
@@ -24,6 +25,16 @@ class BookInfoView(QMainWindow, Ui_BookDetails):
         self.load_info()
         self.backButton.clicked.connect(self.go_back)
         self.cartButton.clicked.connect(self.add_to_cart)
+
+        if is_admin:
+            QTimer.singleShot(0, self.modify_to_admin)
+
+    def modify_to_admin(self):
+        self.cartButton.clicked.disconnect()
+
+        self.cartButton.setText("Удалить книгу")
+        self.cartButton.setStyleSheet('background-color: rgb(255, 0, 51);')
+        self.cartButton.clicked.connect(self.click_delete)
 
     def load_info(self):
         book = db.get_book_by_id(self.book_id)
@@ -47,6 +58,15 @@ class BookInfoView(QMainWindow, Ui_BookDetails):
     def set_last_window(self, last_window):
         self.last_window = last_window
 
+    def set_parent_window(self, parent_window):
+        self.parent_window = parent_window
+
+    def set_is_admin(self, is_admin):
+        self.is_admin = is_admin
+
+        if is_admin:
+            self.modify_to_admin()
+
     def set_book_id(self, book_id):
         self.book_id = book_id
         self.load_info()
@@ -59,6 +79,7 @@ class BookInfoView(QMainWindow, Ui_BookDetails):
     def go_back(self):
         if self.main_window is not None:
             self.main_window.stacked_widget.setCurrentWidget(self.last_window)
+            self.cartButton.show()
 
     def add_to_cart(self):
         print(1)
@@ -84,3 +105,19 @@ class BookInfoView(QMainWindow, Ui_BookDetails):
     def on_remove_book(self, book_id):
         if self.book_id == book_id:
             self.set_removed()
+
+    def hide_buttons(self):
+        self.cartButton.hide()
+
+    def click_delete(self):
+        if show_question_message("Вы уверены, что хотите удалить эту книгу?"):
+            db.remove_book(self.book_id)
+
+            if self.parent_window is not None:
+                self.parent_window.deleteLater()
+            else:
+                self.main_window.admin_panel.clear_products()
+                self.main_window.admin_panel.load_books()
+
+            self.main_window.stacked_widget.setCurrentWidget(self.main_window.admin_panel)
+            self.cartButton.show()

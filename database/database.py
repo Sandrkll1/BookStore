@@ -43,6 +43,10 @@ class UserDatabase(BaseDatabase):
         user = self.cursor.execute("""SELECT * FROM users WHERE username = ?""", (username,))
         return user.fetchone()
 
+    def get_all_users(self):
+        users = self.cursor.execute("""SELECT * FROM users""")
+        return users.fetchall()
+
     def get_user_by_id(self, user_id):
         user = self.cursor.execute("""SELECT * FROM users WHERE user_id =?""", (user_id,))
         return user.fetchone()
@@ -222,6 +226,10 @@ class OrderDatabase(BaseDatabase):
 
     def get_orders_by_user(self, user_id):
         orders = self.cursor.execute("""SELECT * FROM orders WHERE user_id = ?""", (user_id,))
+        return orders.fetchall()
+
+    def get_all_orders(self):
+        orders = self.cursor.execute("""SELECT * FROM orders""")
         return orders.fetchall()
 
 

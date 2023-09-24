@@ -1,7 +1,7 @@
 from PyQt5.QtWidgets import QMainWindow
-from PyQt5 import uic
 from loader import db
 from model.book_card import BookCard
+from model.order_card import OrderCard
 from design.layouts.admin_layout import Ui_AdminPanel
 
 
@@ -16,6 +16,7 @@ class AdminPanel(QMainWindow, Ui_AdminPanel):
         self.current_user_id = current_user_id
 
         self.load_books()
+        self.load_orders()
 
         self.searchBar.textChanged.connect(self.search_books)
         self.addBookBtn.clicked.connect(self.add_book)
@@ -33,10 +34,15 @@ class AdminPanel(QMainWindow, Ui_AdminPanel):
 
         BookCard.check_books(books_cards)
 
+    def load_orders(self):
+        for order in db.get_all_orders():
+            order_card = OrderCard(order[0], order[1], order[6], order[2], order[3], order[4], order[5], main_window=self.main_window, parent_window=self)
+            self.ordersLayout.addWidget(order_card)
+
     def clear_products(self):
         layout = self.booksLayout.layout()
 
-        for i in reversed(range(layout.book_count())):
+        for i in reversed(range(layout.count())):
             widget = layout.itemAt(i).widget()
             if widget is not None:
                 widget.deleteLater()
@@ -47,6 +53,5 @@ class AdminPanel(QMainWindow, Ui_AdminPanel):
         self.load_books(books)
 
     def add_book(self):
-
         if self.main_window is not None:
             self.main_window.stacked_widget.setCurrentWidget(self.main_window.add_book_view)

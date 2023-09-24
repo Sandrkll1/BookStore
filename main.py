@@ -5,6 +5,7 @@ from model.add_book_view import AddBookView
 from model.admin_panel import AdminPanel
 from model.book_info_view import BookInfoView
 from model.main_view import MainView
+from model.order_details_view import OrderDetailsView
 from model.order_placement import OrderPlacement
 from model.registration import Registration
 from model.authorization import Authorization
@@ -30,6 +31,7 @@ class Main(QMainWindow):
         self.admin_panel = AdminPanel(main_window=self)
         self.add_book_view = AddBookView(main_window=self)
         self.book_info_view = BookInfoView(main_window=self)
+        self.orderDetailsView = OrderDetailsView(main_window=self)
 
         self.stacked_widget.addWidget(self.registration)
         self.stacked_widget.addWidget(self.authorization)
@@ -39,10 +41,11 @@ class Main(QMainWindow):
         self.stacked_widget.addWidget(self.admin_panel)
         self.stacked_widget.addWidget(self.add_book_view)
         self.stacked_widget.addWidget(self.book_info_view)
+        self.stacked_widget.addWidget(self.orderDetailsView)
 
         # self.stacked_widget.setCurrentWidget(self.registration)
-        self.stacked_widget.setCurrentWidget(self.mainMenu)
-        # self.stacked_widget.setCurrentWidget(self.admin_panel)
+        # self.stacked_widget.setCurrentWidget(self.mainMenu)
+        self.stacked_widget.setCurrentWidget(self.admin_panel)
         # self.stacked_widget.setCurrentWidget(self.add_book_view)
 
 
