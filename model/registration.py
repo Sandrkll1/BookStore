@@ -3,6 +3,7 @@ from PyQt5.QtWidgets import *
 import qdarkstyle
 from design.layouts.registration_layout import Ui_MainWindow
 from loader import db
+from .helper import show_error_message
 
 
 class Registration(QMainWindow, Ui_MainWindow):
@@ -32,11 +33,15 @@ class Registration(QMainWindow, Ui_MainWindow):
         password = self.passwordEdit.text()
 
         if len(username.strip()) == 0 or len(password.strip()) == 0:
-            QMessageBox.information(self, "Error", "Please fill all fields")
+            show_error_message("Пожалуйста, заполните все поля")
+            return
+
+        if len(password.strip()) <= 8:
+            show_error_message("Пароль слишком короткий. Пароль должен содержать более 8 символов.")
             return
 
         if db.user_in_db(username):
-            QMessageBox.information(self, "Error", "User already exists")
+            show_error_message("Пользователь с таким именем существует. Пожалуйста авторизуйтесь или введие другое имя.")
 
         else:
             db.add_user(username, password)

@@ -4,6 +4,7 @@ from loader import db
 from model.book_card import BookCard
 from model.order_card import OrderCard
 from design.layouts.admin_layout import Ui_AdminPanel
+from .helper import show_question_message
 
 
 class AdminPanel(QMainWindow, Ui_AdminPanel):
@@ -22,6 +23,13 @@ class AdminPanel(QMainWindow, Ui_AdminPanel):
         self.orderSearchBar.textChanged.connect(self.search_orders)
         self.orderSearchBar.setValidator(QIntValidator())
         self.addBookBtn.clicked.connect(self.add_book)
+
+        self.exitAccountBtn.clicked.connect(self.exit_account)
+
+    def set_user_id(self, user_id):
+        self.current_user_id = user_id
+        self.clear_orders()
+        self.load_orders()
 
     def load_books(self, books=None):
         if books is None:
@@ -85,3 +93,7 @@ class AdminPanel(QMainWindow, Ui_AdminPanel):
     def add_book(self):
         if self.main_window is not None:
             self.main_window.stacked_widget.setCurrentWidget(self.main_window.add_book_view)
+
+    def exit_account(self):
+        if show_question_message("Вы точно хотите выйти с аккаунта?"):
+            self.main_window.stacked_widget.setCurrentWidget(self.main_window.authorization)

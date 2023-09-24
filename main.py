@@ -43,9 +43,9 @@ class Main(QMainWindow):
         self.stacked_widget.addWidget(self.book_info_view)
         self.stacked_widget.addWidget(self.orderDetailsView)
 
-        # self.stacked_widget.setCurrentWidget(self.registration)
+        self.stacked_widget.setCurrentWidget(self.registration)
         # self.stacked_widget.setCurrentWidget(self.mainMenu)
-        self.stacked_widget.setCurrentWidget(self.admin_panel)
+        # self.stacked_widget.setCurrentWidget(self.admin_panel)
         # self.stacked_widget.setCurrentWidget(self.add_book_view)
 
 

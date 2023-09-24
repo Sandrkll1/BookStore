@@ -29,12 +29,7 @@ class Ui_MainWindow(object):
         self.leftMenuLayout = QtWidgets.QVBoxLayout()
         self.leftMenuLayout.setObjectName("leftMenuLayout")
         self.searchBar = QtWidgets.QLineEdit(self.centralwidget)
-        self.searchBar.setStyleSheet("\n"
-"               font: 14pt \"MS Shell Dlg 2\"; \n"
-"               padding: 10px;\n"
-"               border: 2px solid #aaa;\n"
-"               border-radius: 5px;\n"
-"           ")
+        self.searchBar.setStyleSheet("font: 14pt \"MS Shell Dlg 2\"; padding: 10px; border: 2px solid #aaa; border-radius: 5px;")
         self.searchBar.setObjectName("searchBar")
         self.leftMenuLayout.addWidget(self.searchBar)
         self.categoriesList = QtWidgets.QListWidget(self.centralwidget)
@@ -42,7 +37,6 @@ class Ui_MainWindow(object):
 "               font: 16pt \"MS Shell Dlg 2\"; \n"
 "               border: 1px solid #ddd;\n"
 "\n"
-"               /* Стиль для элементов */\n"
 "               QListWidget::item {\n"
 "                   padding: 10px 20px; \n"
 "                   margin: 5px 0; \n"
@@ -76,6 +70,13 @@ class Ui_MainWindow(object):
         self.cartBtn.setFont(font)
         self.cartBtn.setObjectName("cartBtn")
         self.leftMenuLayout.addWidget(self.cartBtn)
+        self.exitAccountBtn = QtWidgets.QPushButton(self.centralwidget)
+        self.exitAccountBtn.setMinimumSize(QtCore.QSize(0, 30))
+        font = QtGui.QFont()
+        font.setPointSize(12)
+        self.exitAccountBtn.setFont(font)
+        self.exitAccountBtn.setObjectName("exitAccountBtn")
+        self.leftMenuLayout.addWidget(self.exitAccountBtn)
         self.containerLayout.addLayout(self.leftMenuLayout)
         self.productsScrollArea = QtWidgets.QScrollArea(self.centralwidget)
         self.productsScrollArea.setWidgetResizable(True)
@@ -91,6 +92,11 @@ class Ui_MainWindow(object):
         self.containerLayout.addWidget(self.productsScrollArea)
         self.mainLayout.addLayout(self.containerLayout)
         MainWindow.setCentralWidget(self.centralwidget)
+        self.action = QtWidgets.QAction(MainWindow)
+        font = QtGui.QFont()
+        font.setPointSize(8)
+        self.action.setFont(font)
+        self.action.setObjectName("action")
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
@@ -102,3 +108,5 @@ class Ui_MainWindow(object):
         self.searchBar.setPlaceholderText(_translate("MainWindow", "Поиск книг..."))
         self.deleteFiltersBtn.setText(_translate("MainWindow", "Убрать Фильтрацию"))
         self.cartBtn.setText(_translate("MainWindow", "Корзина"))
+        self.exitAccountBtn.setText(_translate("MainWindow", "Выйти С Аккаунта"))
+        self.action.setText(_translate("MainWindow", "Выйти"))

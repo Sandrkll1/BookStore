@@ -2,6 +2,7 @@ from PyQt5.QtWidgets import *
 from .book_card import BookCard
 from design.layouts.main_layout import Ui_MainWindow
 from loader import db, cart
+from .helper import show_question_message
 
 
 class MainView(QMainWindow, Ui_MainWindow):
@@ -29,6 +30,7 @@ class MainView(QMainWindow, Ui_MainWindow):
         self.deleteFiltersBtn.clicked.connect(self.delete_filters)
         self.cartBtn.clicked.connect(self.go_cart)
         self.searchBar.textChanged.connect(self.search_books)
+        self.exitAccountBtn.clicked.connect(self.exit_account)
 
     def load_books(self, books=None):
         if books is None:
@@ -109,3 +111,7 @@ class MainView(QMainWindow, Ui_MainWindow):
             widget = layout.itemAt(i).widget()
             if widget is not None and (widget.book_id == book_id or book_id == -1):
                 widget.set_count(book_count)
+
+    def exit_account(self):
+        if show_question_message("Вы точно хотите выйти с аккаунта?"):
+            self.main_window.stacked_widget.setCurrentWidget(self.main_window.authorization)

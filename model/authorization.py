@@ -3,6 +3,7 @@ from PyQt5.QtWidgets import *
 import qdarkstyle
 from loader import db
 from design.layouts.authorization_layout import Ui_MainWindow
+from .helper import show_error_message
 
 
 class Authorization(QMainWindow, Ui_MainWindow):
@@ -31,14 +32,18 @@ class Authorization(QMainWindow, Ui_MainWindow):
         password = self.passwordEdit.text()
 
         if len(username.strip()) == 0 or len(password.strip()) == 0:
-            QMessageBox.information(self, "Error", "Please fill all fields")
+            show_error_message("Пожалуйста, заполните все поля")
         else:
             db.user_in_db(username)
             if db.check_user(username, password):
-                self.main_window.mainMenu.set_user_id(db.get_user(username)[0])
-                self.main_window.stacked_widget.setCurrentWidget(self.main_window.mainMenu)
+                if db.is_admin(username, password):
+                    self.main_window.admin_panel.set_user_id(db.get_user(username)[0])
+                    self.main_window.stacked_widget.setCurrentWidget(self.main_window.admin_panel)
+                else:
+                    self.main_window.mainMenu.set_user_id(db.get_user(username)[0])
+                    self.main_window.stacked_widget.setCurrentWidget(self.main_window.mainMenu)
             else:
-                QMessageBox.warning(self, "Warning", "Wrong username or password")
+                show_error_message("Неверный логин или пароль")
 
 
 if __name__ == "__main__":
