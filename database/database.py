@@ -106,6 +106,7 @@ class BookDatabase(BaseDatabase):
     def __init__(self, filename):
         super().__init__(filename)
         self.create_table()
+        self.create_fts_table()
 
     def create_table(self):
         query = """
@@ -125,6 +126,13 @@ class BookDatabase(BaseDatabase):
         self.cursor.execute(query)
         self.db.commit()
 
+    def create_fts_table(self):
+        query = """
+            CREATE VIRTUAL TABLE IF NOT EXISTS books_fts USING fts5(book_name, author, description);
+            """
+        self.cursor.execute(query)
+        self.db.commit()
+
     def add_book(self, book_name, author, year, description, price, category_id, cover=None):
         if cover is not None and os.path.isfile(cover):
             cover = self.convert_to_binary_data(cover)
@@ -132,6 +140,36 @@ class BookDatabase(BaseDatabase):
         self.cursor.execute("""INSERT INTO books(book_name, author, year, description, price, category_id, cover) VALUES(?, ?, ?, ?, ?, ?, ?)""",
                             (book_name, author, year, description, price, category_id, cover, ))
         self.db.commit()
+
+        book_id = self.cursor.lastrowid
+
+        # Manually insert into the FTS table
+        self.cursor.execute("""INSERT INTO books_fts(rowid, book_name, author, description) VALUES(?, ?, ?, ?)""",
+                            (book_id, book_name, author, description))
+        self.db.commit()
+
+    def search_books_name(self, book_name: str):
+        # Заменяем пробелы на символы * и добавляем * в конце, чтобы искать по префиксам
+        modified_book_name = book_name.replace(' ', '*') + '*'
+
+        # Удаляем звездочки, следующие непосредственно за пробелами
+        modified_book_name = modified_book_name.replace(' *', ' ')
+
+        # Удаляем двойные звездочки
+        modified_book_name = modified_book_name.replace('**', '*')
+
+        query = """
+            SELECT * 
+            FROM books 
+            WHERE book_id IN (
+                SELECT rowid 
+                FROM books_fts 
+                WHERE books_fts MATCH ? 
+                ORDER BY bm25(books_fts) ASC
+            )
+        """
+        self.cursor.execute(query, (modified_book_name,))
+        return self.cursor.fetchall()
 
     def get_book_by_id(self, book_id):
         book = self.cursor.execute("""SELECT * FROM books WHERE book_id = ?""", (book_id,))
@@ -148,10 +186,6 @@ class BookDatabase(BaseDatabase):
     def get_books_by_category(self, category_id: int):
         books = self.cursor.execute("""SELECT * FROM books WHERE category_id = ?""", (category_id,))
         return books.fetchall()
-
-    def search_books_name(self, book_name: str):
-        self.cursor.execute("""SELECT * FROM books WHERE LOWER(book_name) LIKE LOWER(?)""", (f"%{book_name.lower()}%",))
-        return self.cursor.fetchall()
 
     def remove_book(self, book_id: int):
         self.cursor.execute("""DELETE FROM books WHERE book_id = ?""", (book_id,))

@@ -62,7 +62,12 @@ class AdminPanel(QMainWindow, Ui_AdminPanel):
                 widget.deleteLater()
 
     def search_books(self):
-        books = db.search_books_name(self.searchBar.text())
+        text = self.searchBar.text()
+        books = None
+
+        if len(text.strip()) != 0:
+            books = db.search_books_name(self.searchBar.text())
+
         self.clear_products()
         self.load_books(books)
 

@@ -17,7 +17,7 @@ class OrderCard(QWidget, Ui_OrderCard):
 
         self.orderIdLabel.setText(f"ID Заказа: {order_id}")
         self.userIdLabel.setText(f"ID Пользователя: {user_id}")
-        self.paymentTypeLabel.setText(f"Способ оплаты: {'Картой' if payment_type else 'Наличными'}")
+        self.paymentTypeLabel.setText(f"Способ оплаты: {'Картой' if payment_type == 0 else 'Наличными'}")
         self.priceLabel.setText(f"Стоимость: {price}")
         self.addressLabel.setText(f"Адрес: {address}")
         self.emailLabel.setText(f"Электронная почта: {email}")
