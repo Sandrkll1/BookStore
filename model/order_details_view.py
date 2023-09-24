@@ -1,7 +1,7 @@
 from PyQt5.QtWidgets import QMainWindow
 from loader import db
 from model.order_details_book_card import OrderDetailsBookCard
-from design.layouts.ordeer_details_layout import Ui_OrderDetails
+from design.layouts.order_details_layout import Ui_OrderDetails
 
 
 class OrderDetailsView(QMainWindow, Ui_OrderDetails):

@@ -28,8 +28,8 @@ class OrderPlacement(QMainWindow, Ui_OrderPlacement):
     def set_user_id(self, user_id):
         self.current_user_id = user_id
 
-    def get_name(self):
-        return self.nameLineEdit.text().strip()
+    def get_address(self):
+        return self.addressLineEdit.text().strip()
 
     def get_email(self):
         email = self.emailLineEdit.text().strip()
@@ -40,12 +40,12 @@ class OrderPlacement(QMainWindow, Ui_OrderPlacement):
         return phone if PHONE_REGEX.match(phone) else None
 
     def confirm_order(self):
-        name = self.get_name()
+        address = self.get_address()
         email = self.get_email()
         phone = self.get_phone()
         is_checked = self.termsCheckBox.isChecked()
 
-        if not name:
+        if not address:
             show_error_message("Пожалуйста, введите правильное имя.")
             return
 
@@ -61,7 +61,7 @@ class OrderPlacement(QMainWindow, Ui_OrderPlacement):
             show_error_message("Пожалуйста, согласитесь с условиями.")
             return
 
-        order_id = db.add_order(self.current_user_id, self.price, name, email, phone, self.paymentComboBox.currentIndex())
+        order_id = db.add_order(self.current_user_id, self.price, address, email, phone, self.paymentComboBox.currentIndex())
         for book in cart.get_books():
             db.add_order_item(order_id, book[0], book[1])
 
