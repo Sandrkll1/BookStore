@@ -26,7 +26,7 @@ class Ui_MainWindow(object):
         self.verticalLayout.setSizeConstraint(QtWidgets.QLayout.SetMaximumSize)
         self.verticalLayout.setObjectName("verticalLayout")
         self.registerButton = QtWidgets.QPushButton(self.centralwidget)
-        self.registerButton.setMaximumSize(QtCore.QSize(100, 16777215))
+        self.registerButton.setMaximumSize(QtCore.QSize(16777215, 16777215))
         font = QtGui.QFont()
         font.setPointSize(12)
         font.setBold(False)

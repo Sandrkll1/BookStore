@@ -134,7 +134,7 @@
             </property>
             <property name="maximumSize">
              <size>
-              <width>150</width>
+              <width>16777215</width>
               <height>16777215</height>
              </size>
             </property>
@@ -215,7 +215,7 @@
              <x>0</x>
              <y>0</y>
              <width>920</width>
-             <height>528</height>
+             <height>507</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="ordersContainerLayout">

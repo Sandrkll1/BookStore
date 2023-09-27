@@ -1,6 +1,5 @@
 import sys
 from PyQt5.QtWidgets import *
-
 from model.add_book_view import AddBookView
 from model.admin_panel import AdminPanel
 from model.book_info_view import BookInfoView
@@ -10,14 +9,15 @@ from model.order_placement import OrderPlacement
 from model.registration import Registration
 from model.authorization import Authorization
 from model.cart_view import Cart
-import qdarkstyle
+# import qdarkstyle
+from qt_material import apply_stylesheet
 
 
 class Main(QMainWindow):
 
     def __init__(self, *args):
         super(Main, self).__init__(*args)
-        self.setMinimumWidth(800)
+        self.setMinimumWidth(850)
         self.setMinimumHeight(600)
 
         self.stacked_widget = QStackedWidget()
@@ -51,7 +51,8 @@ class Main(QMainWindow):
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    app.setStyleSheet(qdarkstyle.load_stylesheet_pyqt5())
+    # app.setStyleSheet(qdarkstyle.load_stylesheet_pyqt5())
+    apply_stylesheet(app, 'dark_cyan.xml')
     window = Main()
     window.show()
     sys.exit(app.exec_())

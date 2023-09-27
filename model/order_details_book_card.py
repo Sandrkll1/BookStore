@@ -20,7 +20,7 @@ class OrderDetailsBookCard(QtWidgets.QWidget, Ui_BookCard):
         self.bookYear.setText(f"Год издания: {year}")
         self.bookPrice.setText(f"Цена: {price}")
         self.countSpinBox.setValue(int(quantity))
-        self.countSpinBox.setEnabled(False)
+        self.countSpinBox.setReadOnly(True)
 
         if image is not None:
             pixmap = QPixmap()

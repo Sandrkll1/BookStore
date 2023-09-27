@@ -26,7 +26,7 @@ class Ui_MainWindow(object):
         self.verticalLayout.setSizeConstraint(QtWidgets.QLayout.SetMaximumSize)
         self.verticalLayout.setObjectName("verticalLayout")
         self.loginButton = QtWidgets.QPushButton(self.centralwidget)
-        self.loginButton.setMaximumSize(QtCore.QSize(75, 16777215))
+        self.loginButton.setMaximumSize(QtCore.QSize(16777215, 16777215))
         font = QtGui.QFont()
         font.setPointSize(12)
         font.setBold(False)

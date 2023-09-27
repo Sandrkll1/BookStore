@@ -175,7 +175,7 @@
          </property>
         </widget>
        </item>
-       <item>
+       <item alignment="Qt::AlignRight">
         <widget class="QSpinBox" name="countSpinBox">
          <property name="minimumSize">
           <size>
@@ -185,7 +185,7 @@
          </property>
          <property name="maximumSize">
           <size>
-           <width>50</width>
+           <width>16777215</width>
            <height>16777215</height>
           </size>
          </property>
