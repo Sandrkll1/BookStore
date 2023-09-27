@@ -82,17 +82,17 @@ def add_sample_orders(num_orders=30):
     addresses = ["Main St.", "Elm St.", "Park Ave.", "Broadway", "5th Ave."]
     emails = ["example@example.com", "test@test.com", "user@domain.com"]
     phone_numbers = ["+73917387324", "+375298684719", "+184727352832"]
-    payment_types = [0, 1]  # Предположим, что 1, 2 и 3 представляют разные типы оплаты
+    payment_types = [0, 1]
 
-    books = db.get_all_books()  # получаем все книги из базы данных
+    books = db.get_all_books()
 
     if not books:
         print("No books in the database!")
         return
 
     for _ in range(num_orders):
-        user_id = random.choice(users)[0]  # Выбираем случайного пользователя
-        price = round(random.uniform(500, 10000), 2)  # Случайная цена от 10 до 500
+        user_id = random.choice(users)[0]
+        price = round(random.uniform(500, 10000), 2)
         address = random.choice(addresses)
         email = random.choice(emails)
         phone = random.choice(phone_numbers)
@@ -100,11 +100,10 @@ def add_sample_orders(num_orders=30):
 
         order_id = db.add_order(user_id, price, address, email, phone, payment_type)
 
-        # Добавляем случайные элементы заказа (от 1 до 5 элементов)
         for _ in range(random.randint(1, 5)):
-            book = random.choice(books)  # выбираем случайную книгу
+            book = random.choice(books)
             book_id = book[0]
-            quantity = random.randint(1, 5)  # Количество от 1 до 5
+            quantity = random.randint(1, 5)
             db.add_order_item(order_id, book_id, quantity)
 
 
