@@ -93,8 +93,14 @@
           </property>
          </widget>
         </item>
-        <item>
+        <item alignment="Qt::AlignRight">
          <widget class="QLineEdit" name="usernameEdit">
+          <property name="minimumSize">
+           <size>
+            <width>380</width>
+            <height>0</height>
+           </size>
+          </property>
           <property name="maximumSize">
            <size>
             <width>16777215</width>
@@ -124,8 +130,14 @@
           </property>
          </widget>
         </item>
-        <item>
+        <item alignment="Qt::AlignRight">
          <widget class="QLineEdit" name="passwordEdit">
+          <property name="minimumSize">
+           <size>
+            <width>380</width>
+            <height>0</height>
+           </size>
+          </property>
           <property name="font">
            <font>
             <pointsize>14</pointsize>

@@ -21,8 +21,10 @@ class Registration(QMainWindow, Ui_MainWindow):
     def show_password(self):
         if self.showPasswordCheckBox.isChecked():
             self.passwordEdit.setEchoMode(QLineEdit.Normal)
+            self.repeatPasswordLineEdit.setEchoMode(QLineEdit.Normal)
         else:
             self.passwordEdit.setEchoMode(QLineEdit.Password)
+            self.repeatPasswordLineEdit.setEchoMode(QLineEdit.Password)
 
     def show_login(self):
         if self.main_window is not None:
