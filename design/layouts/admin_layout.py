@@ -119,7 +119,7 @@ class Ui_AdminPanel(object):
         self.ordersScrollArea.setWidgetResizable(True)
         self.ordersScrollArea.setObjectName("ordersScrollArea")
         self.ordersContainer = QtWidgets.QWidget()
-        self.ordersContainer.setGeometry(QtCore.QRect(0, 0, 98, 28))
+        self.ordersContainer.setGeometry(QtCore.QRect(0, 0, 920, 507))
         self.ordersContainer.setObjectName("ordersContainer")
         self.ordersContainerLayout = QtWidgets.QVBoxLayout(self.ordersContainer)
         self.ordersContainerLayout.setSpacing(10)
@@ -140,7 +140,7 @@ class Ui_AdminPanel(object):
     def retranslateUi(self, AdminPanel):
         _translate = QtCore.QCoreApplication.translate
         AdminPanel.setWindowTitle(_translate("AdminPanel", "Admin Panel - Bookstore"))
-        self.titleLabel.setText(_translate("AdminPanel", "Admin Panel"))
+        self.titleLabel.setText(_translate("AdminPanel", "Админ Панель"))
         self.searchBar.setPlaceholderText(_translate("AdminPanel", "Поиск книг..."))
         self.exitAccountBtn.setText(_translate("AdminPanel", "Выйти с аккаунта"))
         self.addBookBtn.setText(_translate("AdminPanel", "Добавить книгу"))

@@ -102,6 +102,7 @@ class Ui_BookDetails(object):
         font = QtGui.QFont()
         font.setPointSize(14)
         self.descriptionLabel.setFont(font)
+        self.descriptionLabel.setWordWrap(True)
         self.descriptionLabel.setObjectName("descriptionLabel")
         self.formLayout.setWidget(6, QtWidgets.QFormLayout.FieldRole, self.descriptionLabel)
         self.priceLabelInfo = QtWidgets.QLabel(self.frame)
